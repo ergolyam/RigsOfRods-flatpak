@@ -1,0 +1,35 @@
+id: 'org.rigsofrods.RigsOfRods'
+runtime: 'org.freedesktop.Platform'
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+command: RoR
+finish-args: 
+  - --socket=pulseaudio
+  - --share=ipc
+  - --device=dri
+  - --socket=x11
+  - --share=network
+
+modules:
+  - name: rigs-of-rods
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DCMAKE_INSTALL_PREFIX=/app
+      - -DBUILD_REDIST_FOLDER=ON
+      - -DUSE_PACKAGE_MANAGER=OFF
+      - -DUSE_PMM=OFF
+    build-commands:
+      - cmake --build . --parallel
+      - cmake --build . --target zip_and_copy_resources
+      - cmake --install .
+      - |
+        if [ -f "redist/bin/RoR" ]; then
+          install -d /app/share/rigs-of-rods
+          cp -a redist /app/share/rigs-of-rods/
+          install -Dm755 /app/share/rigs-of-rods/redist/bin/RoR /app/bin/RoR
+        fi
+    sources:
+      - type: git
+        url: https://github.com/RigsOfRods/rigs-of-rods.git
+        branch: master
