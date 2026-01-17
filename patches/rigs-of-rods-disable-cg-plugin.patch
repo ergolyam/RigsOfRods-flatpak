@@ -1,0 +1,9 @@
+--- a/source/main/plugins.cfg.in
++++ b/source/main/plugins.cfg.in
+@@ -11,5 +11,5 @@
+ @CFG_COMMENT_RENDERSYSTEM_GL3PLUS@Plugin=RenderSystem_GL3Plus
+ Plugin=Plugin_ParticleFX
+ Plugin=Plugin_OctreeSceneManager
+-Plugin=Plugin_CgProgramManager
++# Plugin=Plugin_CgProgramManager
+ @CFG_OGRE_PLUGIN_CAELUM@
