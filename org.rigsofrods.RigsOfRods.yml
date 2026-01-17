@@ -236,6 +236,7 @@ modules:
     build-commands:
       - cmake --build . --parallel
       - cmake --install .
+      - strip --strip-unneeded /app/RoR
       - |
         if [ -f /app/lib/libCaelum.so ]; then
           install -Dm755 /app/lib/libCaelum.so /app/lib/OGRE/libCaelum.so
@@ -256,7 +257,6 @@ modules:
       - type: file
         url: https://docs.rigsofrods.org/images/branding/RoR_Logo_TT.svg
         sha256: a1743714a73b6f93a0ed02cda3fcf514d14c6a7db1d9be004da2039dea2fb242
-        dest-filename: RoR_Logo_TT.svg
       - type: file
         path: org.rigsofrods.RigsOfRods.metainfo.xml
       - type: script
