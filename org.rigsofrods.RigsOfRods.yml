@@ -156,6 +156,8 @@ modules:
         commit: 3fc7c8e8e95204894865576d2b45cd4606d6d262
       - type: patch
         path: patches/ogre-scriptlexer.patch
+      - type: patch
+        path: patches/ogre-arm-sysctl.patch
 
   - name: mygui
     buildsystem: cmake-ninja
