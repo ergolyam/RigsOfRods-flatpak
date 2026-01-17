@@ -1,5 +1,14 @@
 --- a/source/main/plugins.cfg.in
 +++ b/source/main/plugins.cfg.in
+@@ -4,7 +4,7 @@
+ # Defines plugins to load
+ 
+ # Define plugin folder
+-PluginFolder=@PLUGINS_FOLDER@
++PluginFolder=/app/lib/OGRE
+ 
+ # Define plugins
+ Plugin=Codec_FreeImage
 @@ -11,5 +11,5 @@
  @CFG_COMMENT_RENDERSYSTEM_GL3PLUS@Plugin=RenderSystem_GL3Plus
  Plugin=Plugin_ParticleFX
