@@ -15,8 +15,12 @@ modules:
   - name: freeimage
     buildsystem: simple
     build-options:
-      cflags: -fPIC -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32 -DPNG_ARM_NEON_OPT=0
-      cxxflags: -fPIC -std=gnu++11 -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32 -DPNG_ARM_NEON_OPT=0
+      cflags: -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32 -DPNG_ARM_NEON_OPT=0
+      cxxflags: -std=gnu++11 -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32 -DPNG_ARM_NEON_OPT=0
+      arch:
+        aarch64:
+          cflags: -fPIC
+          cxxflags: -fPIC
     build-commands:
       - make -j${FLATPAK_BUILDER_N_JOBS}
       - install -Dm644 Source/FreeImage.h /app/include/FreeImage.h
@@ -182,6 +186,8 @@ modules:
         path: patches/ogre-scriptlexer.patch
       - type: patch
         path: patches/ogre-arm-sysctl.patch
+        only-arches:
+          - aarch64
 
   - name: mygui
     buildsystem: cmake-ninja
