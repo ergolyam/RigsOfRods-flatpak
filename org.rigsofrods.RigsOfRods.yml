@@ -131,6 +131,23 @@ modules:
         url: https://mesa.freedesktop.org/archive/glu/glu-9.0.3.tar.xz
         sha256: bd43fe12f374b1192eb15fe20e45ff456b9bc26ab57f0eee919f96ca0f8a330f
 
+  - name: nvidia-cg-toolkit
+    buildsystem: simple
+    only-arches:
+      - x86_64
+    build-commands:
+      - install -Dm755 usr/bin/cgc /app/bin/cgc
+      - install -Dm644 -t /app/include/Cg usr/include/Cg/*
+      - install -Dm644 -t /app/lib usr/lib64/*
+      - install -Dm644 usr/local/Cg/docs/license.txt /app/share/licenses/nvidia-cg-toolkit/license.txt
+      - cp -r usr/local/Cg /app/share/
+      - find /app/share/Cg -type d -exec chmod 755 '{}' ';'
+      - find /app/share/Cg -type f -exec chmod 644 '{}' ';'
+    sources:
+      - type: archive
+        url: https://developer.download.nvidia.com/cg/Cg_3.1/Cg-3.1_April2012_x86_64.tgz
+        sha256: e8ff01e6cc38d1b3fd56a083f5860737dbd2f319a39037528fb1a74a89ae9878
+
   - name: ogre
     buildsystem: cmake-ninja
     config-opts:
@@ -147,8 +164,15 @@ modules:
       - -DOGRE_BUILD_SAMPLES=OFF
       - -DOGRE_BUILD_TOOLS=ON
       - -DOGRE_RESOURCEMANAGER_STRICT=0
-      - -DOGRE_BUILD_PLUGIN_CG=OFF
       - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    build-options:
+      arch:
+        x86_64:
+          config-opts:
+            - -DOGRE_BUILD_PLUGIN_CG=ON
+        aarch64:
+          config-opts:
+            - -DOGRE_BUILD_PLUGIN_CG=OFF
     sources:
       - type: git
         url: https://github.com/OGRECave/ogre.git
@@ -251,7 +275,11 @@ modules:
         tag: '2026.01'
         commit: 27442a6c536f66321a78bdc7251aca71edddace1
       - type: patch
+        path: patches/rigs-of-rods-pluginfolder.patch
+      - type: patch
         path: patches/rigs-of-rods-disable-cg-plugin.patch
+        only-arches:
+          - aarch64
       - type: patch
         path: patches/rigs-of-rods-desktop.patch
       - type: file
