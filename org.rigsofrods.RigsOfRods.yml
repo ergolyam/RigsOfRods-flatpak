@@ -15,8 +15,8 @@ modules:
   - name: freeimage
     buildsystem: simple
     build-options:
-      cflags: -fPIC -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32
-      cxxflags: -fPIC -std=gnu++11 -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32
+      cflags: -fPIC -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32 -DPNG_ARM_NEON_OPT=0
+      cxxflags: -fPIC -std=gnu++11 -DHAVE_UNISTD_H -D_byteswap_ulong=__builtin_bswap32 -DPNG_ARM_NEON_OPT=0
     build-commands:
       - make -j${FLATPAK_BUILDER_N_JOBS}
       - install -Dm644 Source/FreeImage.h /app/include/FreeImage.h
