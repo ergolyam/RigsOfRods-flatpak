@@ -298,3 +298,13 @@ modules:
         commands:
           - export SNAP_USER_COMMON=${XDG_DATA_HOME}/rigsofrods
           - exec /app/RoR "$@"
+
+cleanup:
+  - /include
+  - /lib/cmake
+  - /lib/pkgconfig
+  - /share/aclocal
+  - /share/man
+  - /share/doc
+  - /lib/*.a
+  - /lib/*.la
